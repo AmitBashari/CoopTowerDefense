@@ -12,6 +12,16 @@ public class Health : NetworkBehaviour
     public RectTransform HealthBar;
     public bool DestroyOnWet;
 
+    private NetworkStartPosition[] _spawnPoints;
+
+    private void Start()
+    {
+        if (isLocalPlayer)
+        {
+            _spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
+    }
+
     public void GetWet(int amount)
     {
         if (!isServer)
@@ -44,7 +54,14 @@ public class Health : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = Vector3.zero;
+            //transform.position = Vector3.zero;
+            Vector3 spawnPoint = Vector3.zero;
+
+            if(spawnPoint != null && _spawnPoints.Length > 0)
+            {
+                spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)].transform.position;
+            }
+            transform.position = spawnPoint;
         }
     }
 }
