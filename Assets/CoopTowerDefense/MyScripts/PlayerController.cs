@@ -7,6 +7,11 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
+    public GameObject WaterBaloonPrefab;
+    public Transform WaterBaloonSpawn;
+
+    private float _throwVelocity = 6f;
+
     void Update()
     {
         if (!isLocalPlayer)
@@ -19,5 +24,26 @@ public class PlayerController : NetworkBehaviour
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CmdThrowWaterBaloon();
+        }
+    }
+    [Command]
+    private void CmdThrowWaterBaloon()
+    {
+        GameObject waterBaloon = (GameObject) Instantiate(WaterBaloonPrefab,WaterBaloonSpawn.position, WaterBaloonSpawn.rotation );
+
+        waterBaloon.GetComponent<Rigidbody>().velocity = waterBaloon.transform.forward * _throwVelocity;
+
+        NetworkServer.Spawn(waterBaloon);
+
+        Destroy(waterBaloon, 2);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 }
