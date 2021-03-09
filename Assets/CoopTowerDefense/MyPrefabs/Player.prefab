@@ -540,6 +540,7 @@ MonoBehaviour:
   syncInterval: 0.1
   CurrentHealth: 100
   HealthBar: {fileID: 1493602906}
+  DestroyOnWet: 0
 --- !u!1 &6170329324965336937
 GameObject:
   m_ObjectHideFlags: 0
