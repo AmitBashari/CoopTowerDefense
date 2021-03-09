@@ -20,8 +20,8 @@ public class Health : NetworkBehaviour
         CurrentHealth -= amount;
         if (CurrentHealth <= 0)
         {
-            CurrentHealth = 0;
-            Debug.Log("Fully Watered!");
+            CurrentHealth = MaxHealth;
+            RpcSpawn();
         }
 
     }
@@ -29,7 +29,14 @@ public class Health : NetworkBehaviour
     void OnChangeHealth(int currenthealth, int health)
     {
         HealthBar.sizeDelta = new Vector2(health * 2, HealthBar.sizeDelta.y);
-        //CurrentHealth = health;
     }
 
+    [ClientRpc]
+    void RpcSpawn()
+    {
+        if (isLocalPlayer)
+        {
+            transform.position = Vector3.zero;
+        }
+    }
 }
