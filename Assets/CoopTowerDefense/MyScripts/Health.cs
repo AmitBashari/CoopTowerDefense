@@ -10,6 +10,7 @@ public class Health : NetworkBehaviour
     public const int MaxHealth = 100;
     [SyncVar(hook = nameof(OnChangeHealth))] public int CurrentHealth = MaxHealth;
     public RectTransform HealthBar;
+    public bool DestroyOnWet;
 
     public void GetWet(int amount)
     {
@@ -20,8 +21,15 @@ public class Health : NetworkBehaviour
         CurrentHealth -= amount;
         if (CurrentHealth <= 0)
         {
-            CurrentHealth = MaxHealth;
-            RpcSpawn();
+            if (DestroyOnWet)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                CurrentHealth = MaxHealth;
+                RpcSpawn();
+            }
         }
 
     }
