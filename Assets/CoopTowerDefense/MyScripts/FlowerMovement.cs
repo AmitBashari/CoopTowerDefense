@@ -31,6 +31,7 @@ public class FlowerMovement : NetworkBehaviour
         if(_wavePointIndex >= Waypoints.Points.Length - 1)
         {
             Destroy(gameObject);
+            return;
         }
         _wavePointIndex++;
         _target = Waypoints.Points[_wavePointIndex];
