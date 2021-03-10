@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterBaloon : MonoBehaviour
 {
-    private int _wetAmount = 10;
+    private int _wetAmount = 20;
 
     private void OnCollisionEnter(Collision collision)
     {
