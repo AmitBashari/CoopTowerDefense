@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Mirror;
 
-public class Waypoints : MonoBehaviour
+public class Waypoints : NetworkBehaviour
 {
     public static Transform[] Points;
 

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class FlowerMovement : MonoBehaviour
+public class FlowerMovement : NetworkBehaviour
 {
     public float Speed = 4f;
 
